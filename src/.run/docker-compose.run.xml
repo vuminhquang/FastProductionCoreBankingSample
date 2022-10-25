@@ -3,6 +3,14 @@
     <deployment type="docker-compose.yml">
       <settings>
         <option name="envFilePath" value="" />
+        <option name="envVars">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="DOCKER_BUILDKIT" />
+              <option name="value" value="0" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
         <option name="commandLineOptions" value="--build" />
         <option name="secondarySourceFiles">
           <list>

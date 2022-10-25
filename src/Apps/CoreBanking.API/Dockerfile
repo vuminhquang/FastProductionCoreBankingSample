@@ -1,7 +1,5 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0.10-alpine3.16-amd64 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 ########################################################################################################################
 # Build any external system and include into final, just copy from Dockerfile to Dockerfile

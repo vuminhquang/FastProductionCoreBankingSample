@@ -2,4 +2,5 @@ If run it on remote sys
 Server:
 podman system service --time=0 tcp:0.0.0.0:2979
 
+Ở raider, chú ý DOCKER_BUILDKIT=0
 https://www.jetbrains.com/help/idea/podman.html#tutorial-run-podman-in-a-virtual-machine
