@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="CryptoPaymentGateway.Infrastructure.Nginx.config.json">
+      <None Update="CoreBanking.Infrastructure.Nginx.config.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

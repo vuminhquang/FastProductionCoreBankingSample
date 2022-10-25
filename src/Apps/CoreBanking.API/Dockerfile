@@ -110,7 +110,19 @@ RUN apk add --no-cache tor curl && \
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+# Copy the main application prj
 COPY ["Apps/CoreBanking.API/CoreBanking.API.csproj", "Apps/CoreBanking.API/"]
+# https://andrewlock.net/optimising-asp-net-core-apps-in-docker-avoiding-manually-copying-csproj-files-part-2/
+# Copy other Application projects files
+COPY BuildingBlocks/Application/*/*.csproj ./
+RUN for file in $(ls *.csproj); do mkdir -p BuildingBlocks/Application/${file%.*}/ && mv $file BuildingBlocks/Application/${file%.*}/; done
+# Copy other Application projects files
+COPY BuildingBlocks/Domain/*/*.csproj ./
+RUN for file in $(ls *.csproj); do mkdir -p BuildingBlocks/Domain/${file%.*}/ && mv $file BuildingBlocks/Domain/${file%.*}/; done
+# Copy other Application projects files
+COPY BuildingBlocks/Infrastructure/*/*.csproj ./
+RUN for file in $(ls *.csproj); do mkdir -p BuildingBlocks/Infrastructure/${file%.*}/ && mv $file BuildingBlocks/Infrastructure/${file%.*}/; done
+# Restore the main application
 RUN dotnet restore "Apps/CoreBanking.API/CoreBanking.API.csproj"
 COPY . .
 WORKDIR "/src/Apps/CoreBanking.API"

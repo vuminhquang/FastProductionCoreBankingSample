@@ -1,0 +1,3 @@
+{
+  "EnableEventStore" : "true" // Will enable if inside Docker and EnableNginx == true
+}

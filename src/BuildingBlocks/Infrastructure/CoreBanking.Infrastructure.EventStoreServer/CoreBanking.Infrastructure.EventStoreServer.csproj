@@ -13,4 +13,10 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
         <PackageReference Include="VDG_EngineFramework" Version="1.0.1" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Update="CoreBanking.Infrastructure.EventStoreServer.config.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>
