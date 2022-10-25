@@ -1,0 +1,3 @@
+{
+  "EnableNginx" : "true" // Will enable if inside Docker and EnableNginx == true
+}

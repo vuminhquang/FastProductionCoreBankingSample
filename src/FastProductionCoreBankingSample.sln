@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{58730C3A-2ADF-43E5-996E-0D666D83EAF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{D39EE2C3-8E7D-45FA-8CEC-F23F458928E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBanking.API", "Apps\CoreBanking.API\CoreBanking.API.csproj", "{82254D98-593B-450C-BA52-890C04843BEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{2F5A79A5-70C2-4319-BABD-4842B8A1F713}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{3E016196-1B3E-4A38-9576-89ABE245B5EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{2416AB21-F7A8-436E-8A68-F2CADB78E350}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBanking.Infrastructure.Nginx", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Nginx\CoreBanking.Infrastructure.Nginx.csproj", "{610BE273-4465-4873-8289-E21D63CFCE7C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBanking.Application", "BuildingBlocks\Application\CoreBanking.Application\CoreBanking.Application.csproj", "{814420A2-E4C9-45B3-A51C-CF7549599F35}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBanking.Application.Core", "BuildingBlocks\Application\CoreBanking.Application.Core\CoreBanking.Application.Core.csproj", "{6797E589-CC38-4D4B-98E7-AE71EBD2C6C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBanking.Infrastructure.EventStoreServer", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.EventStoreServer\CoreBanking.Infrastructure.EventStoreServer.csproj", "{3BFA6175-622A-4AF2-8370-1260E9D8632D}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B6928853-36E4-4075-8015-730993BD55C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{C38FD03F-19DE-4C74-9E86-79BB7C19869A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{963FB8B2-C86C-4A43-8C06-6A5608D1B722}"
+	ProjectSection(SolutionItems) = preProject
+		Gateways\nginx\cert.crt = Gateways\nginx\cert.crt
+		Gateways\nginx\cert.key = Gateways\nginx\cert.key
+		Gateways\nginx\nginx.conf = Gateways\nginx\nginx.conf
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82254D98-593B-450C-BA52-890C04843BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82254D98-593B-450C-BA52-890C04843BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82254D98-593B-450C-BA52-890C04843BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82254D98-593B-450C-BA52-890C04843BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{610BE273-4465-4873-8289-E21D63CFCE7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{610BE273-4465-4873-8289-E21D63CFCE7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{610BE273-4465-4873-8289-E21D63CFCE7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{610BE273-4465-4873-8289-E21D63CFCE7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814420A2-E4C9-45B3-A51C-CF7549599F35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814420A2-E4C9-45B3-A51C-CF7549599F35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814420A2-E4C9-45B3-A51C-CF7549599F35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814420A2-E4C9-45B3-A51C-CF7549599F35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6797E589-CC38-4D4B-98E7-AE71EBD2C6C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6797E589-CC38-4D4B-98E7-AE71EBD2C6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6797E589-CC38-4D4B-98E7-AE71EBD2C6C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6797E589-CC38-4D4B-98E7-AE71EBD2C6C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BFA6175-622A-4AF2-8370-1260E9D8632D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BFA6175-622A-4AF2-8370-1260E9D8632D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BFA6175-622A-4AF2-8370-1260E9D8632D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BFA6175-622A-4AF2-8370-1260E9D8632D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6928853-36E4-4075-8015-730993BD55C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6928853-36E4-4075-8015-730993BD55C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6928853-36E4-4075-8015-730993BD55C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6928853-36E4-4075-8015-730993BD55C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{82254D98-593B-450C-BA52-890C04843BEF} = {58730C3A-2ADF-43E5-996E-0D666D83EAF3}
+		{2F5A79A5-70C2-4319-BABD-4842B8A1F713} = {D39EE2C3-8E7D-45FA-8CEC-F23F458928E1}
+		{3E016196-1B3E-4A38-9576-89ABE245B5EF} = {D39EE2C3-8E7D-45FA-8CEC-F23F458928E1}
+		{2416AB21-F7A8-436E-8A68-F2CADB78E350} = {D39EE2C3-8E7D-45FA-8CEC-F23F458928E1}
+		{610BE273-4465-4873-8289-E21D63CFCE7C} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
+		{814420A2-E4C9-45B3-A51C-CF7549599F35} = {3E016196-1B3E-4A38-9576-89ABE245B5EF}
+		{6797E589-CC38-4D4B-98E7-AE71EBD2C6C7} = {3E016196-1B3E-4A38-9576-89ABE245B5EF}
+		{3BFA6175-622A-4AF2-8370-1260E9D8632D} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
+		{963FB8B2-C86C-4A43-8C06-6A5608D1B722} = {C38FD03F-19DE-4C74-9E86-79BB7C19869A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51C1F1BF-5211-4DCA-89C8-20BF62DFE5AE}
+	EndGlobalSection
+EndGlobal

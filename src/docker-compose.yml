@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  corebanking.api:
+    image: ${DOCKER_REGISTRY-}corebankingapi
+    build:
+      context: .
+      dockerfile: Apps/CoreBanking.API/Dockerfile
