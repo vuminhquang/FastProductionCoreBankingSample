@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="11.0.0" />
-      <PackageReference Include="VDG_EventSourcing" Version="1.0.0" />
+      <ProjectReference Include="..\..\Domain\CoreBanking.Domain.Core\CoreBanking.Domain.Core.csproj" />
     </ItemGroup>
 
 </Project>

@@ -36,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{963FB8B2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Domain.Core", "BuildingBlocks\Domain\CoreBanking.Domain.Core\CoreBanking.Domain.Core.csproj", "{57D374AF-A938-4838-9651-BDC3802B71C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.Core", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Core\CoreBanking.Infrastructure.Core.csproj", "{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{57D374AF-A938-4838-9651-BDC3802B71C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57D374AF-A938-4838-9651-BDC3802B71C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57D374AF-A938-4838-9651-BDC3802B71C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{3BFA6175-622A-4AF2-8370-1260E9D8632D} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
 		{963FB8B2-C86C-4A43-8C06-6A5608D1B722} = {C38FD03F-19DE-4C74-9E86-79BB7C19869A}
 		{57D374AF-A938-4838-9651-BDC3802B71C1} = {2416AB21-F7A8-436E-8A68-F2CADB78E350}
+		{C83BFDCF-F90E-4316-B21C-42B5C3392F1B} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51C1F1BF-5211-4DCA-89C8-20BF62DFE5AE}
