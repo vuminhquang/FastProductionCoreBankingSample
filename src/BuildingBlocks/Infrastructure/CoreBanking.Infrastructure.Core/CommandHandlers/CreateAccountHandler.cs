@@ -22,14 +22,14 @@ public class CreateAccountHandler : INotificationHandler<CreateAccount>
 
     public async Task Handle(CreateAccount command, CancellationToken cancellationToken)
     {
-        var customer = await _customerEventsService.RehydrateAsync(command.CustomerId);
+        var customer = await _customerEventsService.RehydrateAsync(command.CustomerId, cancellationToken);
         if(null == customer)
             throw new ArgumentOutOfRangeException(nameof(CreateAccount.CustomerId), "invalid customer id");
 
         var account = Account.Create(command.AccountId, customer, command.Currency);
 
-        await _customerEventsService.PersistAsync(customer);
-        await _accountEventsService.PersistAsync(account);
+        await _customerEventsService.PersistAsync(customer, cancellationToken);
+        await _accountEventsService.PersistAsync(account, cancellationToken);
 
         var @event = new AccountCreatedEvent(Guid.NewGuid(), account.Id);
         await _eventProducer.DispatchAsync(@event, cancellationToken);

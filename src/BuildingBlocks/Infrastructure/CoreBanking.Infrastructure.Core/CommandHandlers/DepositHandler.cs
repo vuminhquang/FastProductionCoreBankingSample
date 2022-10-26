@@ -23,13 +23,13 @@ public class DepositHandler : INotificationHandler<Deposit>
 
     public async Task Handle(Deposit command, CancellationToken cancellationToken)
     {
-        var account = await _accountEventsService.RehydrateAsync(command.AccountId);
+        var account = await _accountEventsService.RehydrateAsync(command.AccountId, cancellationToken);
         if(null == account)
             throw new ArgumentOutOfRangeException(nameof(Deposit.AccountId), "invalid account id");
 
         account.Deposit(command.Amount, _currencyConverter);
 
-        await _accountEventsService.PersistAsync(account);
+        await _accountEventsService.PersistAsync(account, cancellationToken);
 
         var @event = new TransactionHappenedEvent(Guid.NewGuid(), account.Id);
         await _eventProducer.DispatchAsync(@event, cancellationToken);

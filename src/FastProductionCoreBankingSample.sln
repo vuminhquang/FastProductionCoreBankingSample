@@ -38,6 +38,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Domain.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.Core", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Core\CoreBanking.Infrastructure.Core.csproj", "{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.Persistent.EventStore", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Persistent.EventStore\CoreBanking.Infrastructure.Persistent.EventStore.csproj", "{F09A2679-03DB-4EDE-8D70-D682F8403F41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SuplementaryProjects", "SuplementaryProjects", "{6F1DF54B-DEC1-42FC-9075-9BB7B26B25D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HyperScalePostgres", "HyperScalePostgres", "{FC25AD85-4597-4394-8F3D-2B0C5C468486}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperScalePostgres", "SupplementaryProjects\HyperScalePostgres\HyperScalePostgres\HyperScalePostgres.csproj", "{5B0BACE5-1061-4E41-A9CE-6356BA925220}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperScalePostgres.Infrastructure", "SupplementaryProjects\HyperScalePostgres\HyperScalePostgres.Infrastructure\HyperScalePostgres.Infrastructure.csproj", "{04A5CD78-5E14-4822-82AB-D64D650227D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +86,18 @@ Global
 		{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F09A2679-03DB-4EDE-8D70-D682F8403F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09A2679-03DB-4EDE-8D70-D682F8403F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09A2679-03DB-4EDE-8D70-D682F8403F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09A2679-03DB-4EDE-8D70-D682F8403F41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B0BACE5-1061-4E41-A9CE-6356BA925220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B0BACE5-1061-4E41-A9CE-6356BA925220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B0BACE5-1061-4E41-A9CE-6356BA925220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B0BACE5-1061-4E41-A9CE-6356BA925220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A5CD78-5E14-4822-82AB-D64D650227D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A5CD78-5E14-4822-82AB-D64D650227D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A5CD78-5E14-4822-82AB-D64D650227D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A5CD78-5E14-4822-82AB-D64D650227D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +114,10 @@ Global
 		{963FB8B2-C86C-4A43-8C06-6A5608D1B722} = {C38FD03F-19DE-4C74-9E86-79BB7C19869A}
 		{57D374AF-A938-4838-9651-BDC3802B71C1} = {2416AB21-F7A8-436E-8A68-F2CADB78E350}
 		{C83BFDCF-F90E-4316-B21C-42B5C3392F1B} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
+		{F09A2679-03DB-4EDE-8D70-D682F8403F41} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
+		{FC25AD85-4597-4394-8F3D-2B0C5C468486} = {6F1DF54B-DEC1-42FC-9075-9BB7B26B25D9}
+		{5B0BACE5-1061-4E41-A9CE-6356BA925220} = {FC25AD85-4597-4394-8F3D-2B0C5C468486}
+		{04A5CD78-5E14-4822-82AB-D64D650227D2} = {FC25AD85-4597-4394-8F3D-2B0C5C468486}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51C1F1BF-5211-4DCA-89C8-20BF62DFE5AE}

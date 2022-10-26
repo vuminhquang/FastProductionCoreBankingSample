@@ -1,0 +1,1 @@
+These DTOs only used for transfer data between UI and backends, not used for data trans with Domain/Infra

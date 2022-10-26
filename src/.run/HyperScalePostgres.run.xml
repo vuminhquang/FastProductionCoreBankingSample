@@ -1,0 +1,21 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="HyperScalePostgres" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="containerName" value="" />
+        <option name="contextFolderPath" value="." />
+        <option name="sourceFilePath" value="SupplementaryProjects/HyperScalePostgres/HyperScalePostgres/Dockerfile" />
+        <option name="volumeBindings">
+          <list>
+            <DockerVolumeBindingImpl>
+              <option name="containerPath" value="/var/lib/postgresql/data" />
+              <option name="hostPath" value="test" />
+            </DockerVolumeBindingImpl>
+          </list>
+        </option>
+      </settings>
+    </deployment>
+    <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isPublishEnabled="true" />
+    <method v="2" />
+  </configuration>
+</component>

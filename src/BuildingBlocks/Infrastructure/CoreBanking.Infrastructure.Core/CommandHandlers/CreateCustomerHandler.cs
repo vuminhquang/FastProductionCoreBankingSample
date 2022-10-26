@@ -34,7 +34,7 @@ public class CreateCustomerHandler : INotificationHandler<CreateCustomer>
             throw new ValidationException("Duplicate email address", new ValidationError(nameof(CreateCustomer.Email), $"email '{command.Email}' already exists"));
             
         var customer = Customer.Create(command.CustomerId, command.FirstName, command.LastName, command.Email);
-        await _eventsService.PersistAsync(customer);
+        await _eventsService.PersistAsync(customer, cancellationToken);
         await _customerEmailsRepository.CreateAsync(command.Email, customer.Id);
 
         var @event = new CustomerCreatedEvent(Guid.NewGuid(), command.CustomerId);

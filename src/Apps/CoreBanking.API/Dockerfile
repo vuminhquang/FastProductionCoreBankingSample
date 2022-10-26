@@ -12,9 +12,18 @@ FROM  nginx:alpine as nginx-build
 # Build EventStoreDb
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS eventstore-build
 ARG RUNTIME=linux-x64
-RUN apt install -y git
+#RUN apt install -y git
 RUN mkdir /build
-RUN git clone https://github.com/EventStore/EventStore.git /build
+#RUN git clone https://github.com/EventStore/EventStore.git /build
+# Instead of git clone, very slow, download using wget
+RUN wget --no-check-certificate -O /tmp/7zip.deb http://ftp.us.debian.org/debian/pool/main/p/p7zip/p7zip_16.02+dfsg-8_amd64.deb; \
+    dpkg -i /tmp/7zip.deb;
+RUN wget --no-check-certificate -O /tmp/7zip-full.deb http://ftp.us.debian.org/debian/pool/main/p/p7zip/p7zip-full_16.02+dfsg-8_amd64.deb; \
+    dpkg -i /tmp/7zip-full.deb;
+RUN GIT_URL="https://github.com/EventStore/EventStore/archive/refs/heads/master.zip"; \
+    wget --no-check-certificate -O /tmp/master.zip $GIT_URL;
+RUN 7z x /tmp/master.zip -o/tmp/master; \
+    cp -r /tmp/master/EventStore-master/* /build;
 WORKDIR /build/src
 RUN dotnet restore --runtime=${RUNTIME}
 # "publish" image

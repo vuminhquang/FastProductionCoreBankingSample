@@ -1,0 +1,3 @@
+{
+  "EnablePostgres" : "true" // Will enable if inside Docker and EnablePostgres == true
+}

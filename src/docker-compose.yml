@@ -6,3 +6,10 @@ services:
     build:
       context: .
       dockerfile: Apps/CoreBanking.API/Dockerfile
+
+  postgres:
+    container_name: postgres_container
+
+    build:
+      context: .
+      dockerfile: SupplementaryProjects/HyperScalePostgres/HyperScalePostgres/Dockerfile

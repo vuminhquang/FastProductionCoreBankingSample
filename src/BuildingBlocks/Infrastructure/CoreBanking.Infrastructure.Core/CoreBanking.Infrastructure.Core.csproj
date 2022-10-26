@@ -10,4 +10,8 @@
       <ProjectReference Include="..\..\Domain\CoreBanking.Domain.Core\CoreBanking.Domain.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Polly" Version="7.2.3" />
+    </ItemGroup>
+
 </Project>

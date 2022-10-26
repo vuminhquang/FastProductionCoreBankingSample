@@ -13,6 +13,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Infrastructure\CoreBanking.Infrastructure.EventStoreServer\CoreBanking.Infrastructure.EventStoreServer.csproj" />
       <ProjectReference Include="..\..\Infrastructure\CoreBanking.Infrastructure.Nginx\CoreBanking.Infrastructure.Nginx.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\CoreBanking.Infrastructure.Persistent.EventStore\CoreBanking.Infrastructure.Persistent.EventStore.csproj" />
       <ProjectReference Include="..\CoreBanking.Application.Core\CoreBanking.Application.Core.csproj" />
     </ItemGroup>
 
