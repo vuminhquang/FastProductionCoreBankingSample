@@ -36,10 +36,18 @@ public class PostgresBackgroundService : BackgroundService
         
         await WaitForApplicationStarted();
 
+        // var pgDataPath = Environment.GetEnvironmentVariable("PGDATA");
+        // if (!File.Exists($"{pgDataPath}/postgresql.conf"))
+        // {
+        //     File.Copy("/usr/local/share/postgresql/postgresql.conf.sample", $"{pgDataPath}/postgresql.conf");
+        // }
+        
         // await Cli.Wrap("bash")
-        //     .WithArguments(args => args.Add("/usr/local/bin/docker-entrypoint.sh", true))
+        //     .WithArguments(args => args
+        //         .Add("/usr/local/bin/docker-entrypoint.sh", true)
+        //     )
         //     .ExecuteAsync(stoppingToken);
-        //
+        
         // logger.LogInformation("/usr/local/bin/docker-entrypoint.sh");
         
         var task = StartPostgres(stoppingToken);
@@ -67,10 +75,10 @@ public class PostgresBackgroundService : BackgroundService
 
     private CommandTask<CommandResult> StartPostgres(CancellationToken stoppingToken)
     {
-        var torTask = Cli.Wrap("postgres")
-            // .WithArguments(args => args
-            //     .Add("-g")
-            //     .Add("daemon off;"))
+        var torTask = Cli.Wrap("/usr/local/bin/docker-entrypoint.sh")
+            .WithArguments(args => args
+                .Add("postgres")
+                /*.Add("daemon off;")*/)
             .WithStandardOutputPipe(PipeTarget.ToDelegate(s => logger.LogDebug(s)))
             .WithStandardErrorPipe(PipeTarget.ToDelegate(s => logger.LogError(s)))
             .ExecuteAsync(stoppingToken);

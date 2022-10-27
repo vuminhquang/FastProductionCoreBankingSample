@@ -8,8 +8,8 @@ services:
       dockerfile: Apps/CoreBanking.API/Dockerfile
 
   postgres:
-    container_name: postgres_container
-
+#    container_name: postgres_container
+#    image: postgres:15.0-alpine
     build:
       context: .
       dockerfile: SupplementaryProjects/HyperScalePostgres/HyperScalePostgres/Dockerfile

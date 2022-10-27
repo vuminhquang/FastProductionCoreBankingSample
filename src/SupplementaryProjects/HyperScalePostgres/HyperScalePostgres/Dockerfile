@@ -2,8 +2,6 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0.10-alpine3.16-amd64 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 ########################################################################################################################
 # Build any external system and include into final, just copy from Dockerfile to Dockerfile
@@ -19,6 +17,7 @@ RUN runDeps="$( \
     			| grep -v -e perl -e python -e tcl \
     	)"; \
     echo $runDeps > /var/lib/runDeps.txt
+       
 # Build postgres done
 # Copy postgres to final images
 # https://github.com/docker-library/postgres/blob/master/Dockerfile-alpine.template
@@ -28,10 +27,14 @@ RUN set -eux; \
 	adduser -u 70 -S -D -G postgres -H -h /var/lib/postgresql -s /bin/sh postgres; \
 	mkdir -p /var/lib/postgresql; \
 	chown -R postgres:postgres /var/lib/postgresql
-
 ENV LANG en_US.utf8
 RUN mkdir /docker-entrypoint-initdb.d
 
+ENV PG_MAJOR 15
+ENV PG_VERSION 15.0
+ENV PG_SHA256 72ec74f4a7c16e684f43ea42e215497fcd4c55d028a68fb72e99e61ff40da4d6
+
+# Read the dependencies collected from build server to variable, and add dependencies to OS
 COPY --chown=postgres:postgres --from=postgres-build /var/lib/runDeps.txt /var/lib/runDeps.txt
 RUN runDeps=$(cat /var/lib/runDeps.txt) \
     apk add --no-cache --virtual .postgresql-rundeps \
@@ -40,29 +43,31 @@ RUN runDeps=$(cat /var/lib/runDeps.txt) \
 		su-exec \
 		tzdata \
 		zstd \
-        icu-data-full;
+        icu-data-full \
+        libpq;
     
 RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgresql && chmod 2777 /var/run/postgresql    
 ENV PGDATA /var/lib/postgresql/data
 # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
-RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 700 "$PGDATA"
+RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA"
 VOLUME /var/lib/postgresql/data
 
 COPY --chown=postgres:postgres --from=postgres-build /var/lib/postgresql /var/lib/postgresql
 COPY --chown=postgres:postgres --from=postgres-build /var/run/postgresql /var/run/postgresql
 COPY --chown=postgres:postgres --from=postgres-build /usr/local/bin/postgres /usr/local/bin/postgres
-#COPY --chown=postgres:postgres --from=postgres-build /usr/local/share/postgresql/postgresql.conf.sample /usr/local/share/postgresql/postgresql.conf.sample
+COPY --chown=postgres:postgres --from=postgres-build /usr/local/bin/initdb /usr/local/bin/initdb
 # Important: copy the needed libraries
 COPY --chown=postgres:postgres --from=postgres-build /usr/lib/ /usr/lib/
 COPY --chown=postgres:postgres --from=postgres-build /usr/local/lib/postgresql/ /usr/local/lib/postgresql/
-COPY --chown=postgres:postgres --from=postgres-build /usr/local/share/postgresql/timezonesets /usr/local/share/postgresql/timezonesets
+COPY --chown=postgres:postgres --from=postgres-build /usr/local/share/postgresql /usr/local/share/postgresql
 
 STOPSIGNAL SIGINT
 COPY --from=postgres-build /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-#RUN chmod -R 755 /usr/local/bin/docker-entrypoint.sh
 RUN chown postgres:postgres /usr/local/bin/docker-entrypoint.sh
+RUN chown postgres:postgres -R $PGDATA
+#COPY --chown=postgres:postgres --from=postgres-build /usr/local/share/postgresql/postgresql.conf.sample $PGDATA/postgresql.conf
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+EXPOSE 5432
 ########################################################################################################################
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
@@ -80,5 +85,10 @@ RUN dotnet publish "HyperScalePostgres.csproj" -c Release -o /app/publish
 FROM final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
 USER postgres:postgres
-ENTRYPOINT ["dotnet", "HyperScalePostgres.dll"]
+
+#ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+#CMD ["/bin/sh", "-c", "while true; do echo hello; sleep 10;done"]
+#CMD ["postgres","&& dotnet", "/app/HyperScalePostgres.dll"]
+CMD ["dotnet", "HyperScalePostgres.dll"]

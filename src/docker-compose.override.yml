@@ -19,9 +19,8 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
-      PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+      - ./postgres/:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
@@ -32,5 +31,3 @@ networks:
   postgres:
     driver: bridge
     
-volumes:
-    postgres: # Remember this on Windows or postgres will have error: "data directory "/var/lib/postgresql/data" has invalid permissions"
