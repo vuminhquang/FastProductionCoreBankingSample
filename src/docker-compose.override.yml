@@ -15,19 +15,58 @@ services:
     networks:
       - postgres
   
-  postgres:
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
-#    volumes:
-#      - ./postgres:/var/lib/postgresql/data
+#  postgres:
+#    environment:
+#      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+#    #    volumes:
+#    #      - ./postgres:/var/lib/postgresql/data
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - postgres
+#    restart: unless-stopped
+  
+  master_postgres:
+#    ports: ["${COORDINATOR_EXTERNAL_PORT:-5432}:5432"]
     ports:
       - "5432:5432"
+    environment: &AUTH
+      POSTGRES_USER: "${POSTGRES_USER:-postgres}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      PGUSER: "${POSTGRES_USER:-postgres}"
+      PGPASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_HOST_AUTH_METHOD: "${POSTGRES_HOST_AUTH_METHOD:-trust}"
+#    volumes:
+#      - ./postgres:/var/lib/postgresql/data
     networks:
       - postgres
 #    restart: unless-stopped
+#    deploy:
+#      mode: replicated
+#      replicas: 3
+  
+  worker_postgres:
+    depends_on: [manager_postgres]
+    environment: *AUTH
+#    command: "/wait-for-manager.sh"
+    volumes:
+      - healthcheck-volume:/healthcheck
+    networks:
+      - postgres
+    
+  manager_postgres:
+    volumes:
+      - "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock"
+      - healthcheck-volume:/healthcheck
+    depends_on: [ master_postgres ]
+    environment: *AUTH
+    networks:
+      - postgres
 
 networks:
   postgres:
     driver: bridge
-    
+
+volumes:
+  healthcheck-volume:    

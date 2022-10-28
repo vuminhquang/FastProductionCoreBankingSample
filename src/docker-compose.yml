@@ -7,9 +7,26 @@ services:
       context: .
       dockerfile: Apps/CoreBanking.API/Dockerfile
 
-  postgres:
-#    container_name: postgres_container
-#    image: postgres:15.0-alpine
+# If using 1 instance
+#  postgres:
+#    #    container_name: postgres_container
+#    #    image: postgres:15.0-alpine
+#    build:
+#      context: .
+#      dockerfile: SupplementaryProjects/HyperScalePostgres/HyperScalePostgres/Dockerfile
+
+# Multiple instance
+  master_postgres:
+    container_name: "${COMPOSE_PROJECT_NAME:-citus}_master"
+#    image: "citusdata/citus:11.1.4"
     build:
       context: .
       dockerfile: SupplementaryProjects/HyperScalePostgres/HyperScalePostgres/Dockerfile
+    hostname: master
+    labels: ["com.citusdata.role=Master"]
+  worker_postgres:
+    image: "citusdata/citus:latest"
+    labels: ["com.citusdata.role=Worker"]
+  manager_postgres:
+    container_name: "${COMPOSE_PROJECT_NAME:-citus}_manager"
+    image: "citusdata/membership-manager:latest"

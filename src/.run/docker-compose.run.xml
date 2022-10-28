@@ -9,6 +9,10 @@
               <option name="name" value="DOCKER_BUILDKIT" />
               <option name="value" value="0" />
             </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="POSTGRES_PASSWORD" />
+              <option name="value" value="Pass@word1" />
+            </DockerEnvVarImpl>
           </list>
         </option>
         <option name="commandLineOptions" value="--build" />
