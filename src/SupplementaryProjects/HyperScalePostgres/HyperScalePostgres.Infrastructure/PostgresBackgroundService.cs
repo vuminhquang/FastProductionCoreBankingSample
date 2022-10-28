@@ -12,7 +12,8 @@ public class PostgresBackgroundService : BackgroundService
     private readonly IHostApplicationLifetime hostApplicationLifetime;
     private readonly IConfiguration config;
     private readonly ILogger<PostgresBackgroundService> logger;
-
+    private CancellationTokenSource? _cancellationTokenSource;
+    
     public PostgresBackgroundService(
         IServer server,
         IHostApplicationLifetime hostApplicationLifetime,
@@ -28,7 +29,9 @@ public class PostgresBackgroundService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        // return;
+        stoppingToken.Register(WhenStopByCancellation);
+        _cancellationTokenSource = new CancellationTokenSource();
+        
         if(!Convert.ToBoolean(config["EnablePostgres"]) || !InDocker)
         {
             return;
@@ -36,24 +39,8 @@ public class PostgresBackgroundService : BackgroundService
         
         await WaitForApplicationStarted();
 
-        // var pgDataPath = Environment.GetEnvironmentVariable("PGDATA");
-        // if (!File.Exists($"{pgDataPath}/postgresql.conf"))
-        // {
-        //     File.Copy("/usr/local/share/postgresql/postgresql.conf.sample", $"{pgDataPath}/postgresql.conf");
-        // }
+        var task = StartPostgres(_cancellationTokenSource.Token);
         
-        // await Cli.Wrap("bash")
-        //     .WithArguments(args => args
-        //         .Add("/usr/local/bin/docker-entrypoint.sh", true)
-        //     )
-        //     .ExecuteAsync(stoppingToken);
-        
-        // logger.LogInformation("/usr/local/bin/docker-entrypoint.sh");
-        
-        var task = StartPostgres(stoppingToken);
-
-        // var publicUrl = await GetNgrokPublicUrl();
-        // logger.LogInformation("Public ngrok URL: {NgrokPublicUrl}", publicUrl);
         logger.LogInformation("Starting Postgres");
 
         try
@@ -66,6 +53,19 @@ public class PostgresBackgroundService : BackgroundService
         }
     }
 
+    private void WhenStopByCancellation()
+    {
+        // var stopPostgresCommand = "kill -INT `head -1 /usr/local/pgsql/data/postmaster.pid`";
+        _cancellationTokenSource?.CancelAfter(1000*60);//Will force after 1 min if postgres did not canceled
+        Cli.Wrap("kill")
+            .WithArguments(args => args
+                .Add("-INT")
+                .Add("`head -1 /usr/local/pgsql/data/postmaster.pid`", false)
+            )
+            .ExecuteAsync().GetAwaiter();
+        logger.LogInformation("Shutdown Postgres Command Sent");
+    }
+
     private Task WaitForApplicationStarted()
     {
         var completionSource = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -75,6 +75,10 @@ public class PostgresBackgroundService : BackgroundService
 
     private CommandTask<CommandResult> StartPostgres(CancellationToken stoppingToken)
     {
+        // var torTask = Cli.Wrap("postgres")
+        //     .WithStandardOutputPipe(PipeTarget.ToDelegate(s => logger.LogDebug(s)))
+        //     .WithStandardErrorPipe(PipeTarget.ToDelegate(s => logger.LogError(s)))
+        //     .ExecuteAsync(stoppingToken);
         var torTask = Cli.Wrap("/usr/local/bin/docker-entrypoint.sh")
             .WithArguments(args => args
                 .Add("postgres")
