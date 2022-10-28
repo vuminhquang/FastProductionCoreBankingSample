@@ -56,13 +56,14 @@ public class PostgresBackgroundService : BackgroundService
     private void WhenStopByCancellation()
     {
         // var stopPostgresCommand = "kill -INT `head -1 /usr/local/pgsql/data/postmaster.pid`";
-        _cancellationTokenSource?.CancelAfter(1000*60);//Will force after 1 min if postgres did not canceled
+        if (_cancellationTokenSource is null) return;
+        _cancellationTokenSource.CancelAfter(1000*60);//Will force after 1 min if postgres did not canceled
         Cli.Wrap("kill")
             .WithArguments(args => args
                 .Add("-INT")
                 .Add("`head -1 /usr/local/pgsql/data/postmaster.pid`", false)
             )
-            .ExecuteAsync().GetAwaiter();
+            .ExecuteAsync(_cancellationTokenSource.Token).GetAwaiter();
         logger.LogInformation("Shutdown Postgres Command Sent");
     }
 
@@ -75,10 +76,6 @@ public class PostgresBackgroundService : BackgroundService
 
     private CommandTask<CommandResult> StartPostgres(CancellationToken stoppingToken)
     {
-        // var torTask = Cli.Wrap("postgres")
-        //     .WithStandardOutputPipe(PipeTarget.ToDelegate(s => logger.LogDebug(s)))
-        //     .WithStandardErrorPipe(PipeTarget.ToDelegate(s => logger.LogError(s)))
-        //     .ExecuteAsync(stoppingToken);
         var torTask = Cli.Wrap("/usr/local/bin/docker-entrypoint.sh")
             .WithArguments(args => args
                 .Add("postgres")

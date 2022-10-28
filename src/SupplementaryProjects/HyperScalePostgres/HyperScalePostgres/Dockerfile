@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0.10-alpine3.16-amd64 AS dotnet-build
 
-FROM postgres:15.0-alpine AS base
+#FROM postgres:15.0-alpine AS base
+FROM citusdata/citus:alpine AS base
 # .NET globalization APIs will use invariant mode by default because DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true is set
 # by the base runtime-deps image. See https://aka.ms/dotnet-globalization-alpine-containers for more information.
 
