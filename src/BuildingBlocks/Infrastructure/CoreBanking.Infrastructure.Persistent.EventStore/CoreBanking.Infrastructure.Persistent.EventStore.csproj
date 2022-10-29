@@ -6,4 +6,20 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="EventStore.Client" Version="21.2.2" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
+      <PackageReference Include="VDG_EventSourcing" Version="1.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\CoreBanking.Domain.Core\CoreBanking.Domain.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="CoreBanking.Infrastructure.Persistent.EventStore.config.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

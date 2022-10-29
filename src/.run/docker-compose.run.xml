@@ -19,6 +19,7 @@
         <option name="secondarySourceFiles">
           <list>
             <option value="docker-compose.yml" />
+            <option value="docker-compose.override.kafka.yml" />
           </list>
         </option>
         <option name="sourceFilePath" value="docker-compose.override.yml" />
