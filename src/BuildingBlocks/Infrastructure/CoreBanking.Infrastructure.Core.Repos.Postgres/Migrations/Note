@@ -1,0 +1,5 @@
+Commands:
+
+cd src
+dotnet ef migrations add InitMigration --project BuildingBlocks/Infrastructure/CoreBanking.Infrastructure.Core.Repos.Postgres --startup-project Apps/CoreBanking.API/CoreBanking.API.csproj
+dotnet ef migrations remove --project BuildingBlocks/Infrastructure/CoreBanking.Infrastructure.Core.Repos.Postgres --startup-project Apps/CoreBanking.API/CoreBanking.API.csproj

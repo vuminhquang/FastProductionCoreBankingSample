@@ -1,0 +1,5 @@
+﻿{
+    "ConnectionStrings": {
+        "Default": "User ID=postgres;Password=Pass@word1;Host=192.68.10.50;Port=5432;Database=CoreBanking;Pooling=true;"
+    }
+}
