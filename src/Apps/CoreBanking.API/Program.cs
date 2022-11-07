@@ -56,4 +56,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.ApplyPluginConfigurations();
+
 app.Run();

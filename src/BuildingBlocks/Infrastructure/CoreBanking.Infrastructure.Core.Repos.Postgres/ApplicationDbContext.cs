@@ -4,18 +4,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreBanking.Infrastructure.Core.Repos.Postgres;
 
-public class ApplicationDatabaseContext : DbContext
+public class ApplicationDbContext : DbContext
 {
     public DbSet<CustomerEntity> Customers => Set<CustomerEntity>();
     
-    public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
-    
+
     #region Audit, not in this POC version
     private readonly IHttpContextAccessor _httpContextAccessor;
     
-    public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options,
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,
             IHttpContextAccessor httpContextAccessor) : base(options)
         {
             _httpContextAccessor = httpContextAccessor;

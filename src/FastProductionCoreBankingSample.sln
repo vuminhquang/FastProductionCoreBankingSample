@@ -38,7 +38,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Domain.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.Core", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Core\CoreBanking.Infrastructure.Core.csproj", "{C83BFDCF-F90E-4316-B21C-42B5C3392F1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.Persistent.EventStore", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Persistent.EventStore\CoreBanking.Infrastructure.Persistent.EventStore.csproj", "{F09A2679-03DB-4EDE-8D70-D682F8403F41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.Core.ES.Repos.EventStore", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Core.ES.Repos.EventStore\CoreBanking.Infrastructure.Core.ES.Repos.EventStore.csproj", "{F09A2679-03DB-4EDE-8D70-D682F8403F41}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SuplementaryProjects", "SuplementaryProjects", "{6F1DF54B-DEC1-42FC-9075-9BB7B26B25D9}"
 	ProjectSection(SolutionItems) = preProject
@@ -54,6 +54,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.MessageQueue.Kafka", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.MessageQueue.Kafka\CoreBanking.Infrastructure.MessageQueue.Kafka.csproj", "{033BEFF3-B11A-425D-8644-2C1D340C0858}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.Core.Repos.Postgres", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Core.Repos.Postgres\CoreBanking.Infrastructure.Core.Repos.Postgres.csproj", "{8E35F10C-9345-41A1-BF31-4053DAFD552D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.Core.ES.Repos.NullStore", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Core.ES.Repos.NullStore\CoreBanking.Infrastructure.Core.ES.Repos.NullStore.csproj", "{35099660-2AEB-47F4-AE8C-E97F94307ED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBanking.Infrastructure.Core.ES.EvProducer.NullProducer", "BuildingBlocks\Infrastructure\CoreBanking.Infrastructure.Core.ES.EvProducer.NullProducer\CoreBanking.Infrastructure.Core.ES.EvProducer.NullProducer.csproj", "{733B6F6E-1CEF-4F82-90A2-C2F387118A04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,6 +117,14 @@ Global
 		{8E35F10C-9345-41A1-BF31-4053DAFD552D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E35F10C-9345-41A1-BF31-4053DAFD552D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E35F10C-9345-41A1-BF31-4053DAFD552D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35099660-2AEB-47F4-AE8C-E97F94307ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35099660-2AEB-47F4-AE8C-E97F94307ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35099660-2AEB-47F4-AE8C-E97F94307ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35099660-2AEB-47F4-AE8C-E97F94307ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{733B6F6E-1CEF-4F82-90A2-C2F387118A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{733B6F6E-1CEF-4F82-90A2-C2F387118A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{733B6F6E-1CEF-4F82-90A2-C2F387118A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{733B6F6E-1CEF-4F82-90A2-C2F387118A04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +147,8 @@ Global
 		{04A5CD78-5E14-4822-82AB-D64D650227D2} = {FC25AD85-4597-4394-8F3D-2B0C5C468486}
 		{033BEFF3-B11A-425D-8644-2C1D340C0858} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
 		{8E35F10C-9345-41A1-BF31-4053DAFD552D} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
+		{35099660-2AEB-47F4-AE8C-E97F94307ED7} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
+		{733B6F6E-1CEF-4F82-90A2-C2F387118A04} = {2F5A79A5-70C2-4319-BABD-4842B8A1F713}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51C1F1BF-5211-4DCA-89C8-20BF62DFE5AE}

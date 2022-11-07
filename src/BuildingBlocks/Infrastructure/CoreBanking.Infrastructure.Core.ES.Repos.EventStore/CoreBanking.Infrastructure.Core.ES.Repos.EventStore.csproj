@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="CoreBanking.Infrastructure.Persistent.EventStore.config.json">
+      <None Update="CoreBanking.Infrastructure.Core.ES.Repos.EventStore.config.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

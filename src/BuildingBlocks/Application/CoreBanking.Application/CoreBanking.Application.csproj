@@ -7,14 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="VDG_EngineFramework" Version="1.0.1" />
+      <PackageReference Include="VDG_EngineFramework" Version="1.0.2" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Infrastructure\CoreBanking.Infrastructure.EventStoreServer\CoreBanking.Infrastructure.EventStoreServer.csproj" />
       <ProjectReference Include="..\..\Infrastructure\CoreBanking.Infrastructure.MessageQueue.Kafka\CoreBanking.Infrastructure.MessageQueue.Kafka.csproj" />
       <ProjectReference Include="..\..\Infrastructure\CoreBanking.Infrastructure.Nginx\CoreBanking.Infrastructure.Nginx.csproj" />
-      <ProjectReference Include="..\..\Infrastructure\CoreBanking.Infrastructure.Persistent.EventStore\CoreBanking.Infrastructure.Persistent.EventStore.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\CoreBanking.Infrastructure.Core.ES.Repos.EventStore\CoreBanking.Infrastructure.Core.ES.Repos.EventStore.csproj" />
       <ProjectReference Include="..\CoreBanking.Application.Core\CoreBanking.Application.Core.csproj" />
     </ItemGroup>
 

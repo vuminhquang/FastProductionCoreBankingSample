@@ -1,5 +1,6 @@
 ﻿{
+    "Provider" : "Postgres",
     "ConnectionStrings": {
-        "Default": "User ID=postgres;Password=Pass@word1;Host=192.68.10.50;Port=5432;Database=CoreBanking;Pooling=true;"
+        "Default": "Server=192.168.10.50:5432;User ID=postgres;Password=Pass@word1;Database=CoreBanking;Pooling=true;"
     }
 }

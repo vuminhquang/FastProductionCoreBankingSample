@@ -1,7 +1,7 @@
 ﻿using EventStore.ClientAPI;
 using Microsoft.Extensions.Logging;
 
-namespace CoreBanking.Infrastructure.Persistent.EventStore
+namespace CoreBanking.Infrastructure.Core.ES.Repos.EventStore
 {
     public class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IDisposable
     {

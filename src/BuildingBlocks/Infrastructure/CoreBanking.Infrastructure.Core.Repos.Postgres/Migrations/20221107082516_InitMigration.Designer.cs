@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
 {
-    [DbContext(typeof(ApplicationDatabaseContext))]
-    [Migration("20221106110737_InitMigration")]
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20221107082516_InitMigration")]
     partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,11 +35,9 @@ namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

@@ -1,6 +1,6 @@
 ﻿using EventStore.ClientAPI;
 
-namespace CoreBanking.Infrastructure.Persistent.EventStore
+namespace CoreBanking.Infrastructure.Core.ES.Repos.EventStore
 {
     public interface IEventStoreConnectionWrapper
     {

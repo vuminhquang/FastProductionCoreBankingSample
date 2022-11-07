@@ -8,10 +8,10 @@
 
     <ItemGroup>
       <PackageReference Include="VDG_EngineFramework" Version="1.0.2" />
-      <PackageReference Include="VDG_EventSourcing" Version="1.0.0" />
-      <PackageReference Include="VDG_MultiThreadsEngine" Version="1.0.0" />
-      <PackageReference Include="Confluent.Kafka" Version="1.9.3" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\CoreBanking.Domain.Core\CoreBanking.Domain.Core.csproj" />
     </ItemGroup>
 
 </Project>

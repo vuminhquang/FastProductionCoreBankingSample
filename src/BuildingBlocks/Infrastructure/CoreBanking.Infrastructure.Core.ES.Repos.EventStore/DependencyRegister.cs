@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using OrderingServer.Domain.EventSourcing.Abstractions;
 using OrderingServer.Domain.EventSourcing.Abstractions.Models;
 
-namespace CoreBanking.Infrastructure.Persistent.EventStore;
+namespace CoreBanking.Infrastructure.Core.ES.Repos.EventStore;
 
 public class DependencyRegister : IDependencyRegister
 {
@@ -18,7 +18,8 @@ public class DependencyRegister : IDependencyRegister
             {
                 var logger = ctx.GetRequiredService<ILogger<EventStoreConnectionWrapper>>();
                 return new EventStoreConnectionWrapper(new Uri(connectionString), logger);
-            }).AddEventsRepository<Customer, Guid>()
+            })
+            .AddEventsRepository<Customer, Guid>()
             .AddEventsRepository<Account, Guid>();
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System.Text;
-using EventStore.ClientAPI;
 using EventSourcing;
 using EventSourcing.Models;
+using EventStore.ClientAPI;
 using OrderingServer.Domain.EventSourcing.Abstractions;
 using OrderingServer.Domain.EventSourcing.Abstractions.Models;
 
-namespace CoreBanking.Infrastructure.Persistent.EventStore
+namespace CoreBanking.Infrastructure.Core.ES.Repos.EventStore
 {
     public class AggregateRepository<TA, TKey> : IAggregateRepository<TA, TKey>
         where TA : class, IAggregateRoot<TKey>
