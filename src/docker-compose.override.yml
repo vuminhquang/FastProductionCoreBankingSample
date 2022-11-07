@@ -1,59 +1,16 @@
 version: '3.4'
 
-networks:
-  postgres:
-    driver: bridge
-
 services:
- 
-#  postgres:
-#    environment:
-#      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
-#    #    volumes:
-#    #      - ./postgres:/var/lib/postgresql/data
-#    ports:
-#      - "5432:5432"
-#    networks:
-#      - postgres
-#    restart: unless-stopped
-  
-  master_postgres:
-#    ports: ["${COORDINATOR_EXTERNAL_PORT:-5432}:5432"]
+  corebanking.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      #      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:5000
     ports:
-      - "5432:5432"
-    environment: &AUTH
-      POSTGRES_USER: "${POSTGRES_USER:-postgres}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      PGUSER: "${POSTGRES_USER:-postgres}"
-      PGPASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_HOST_AUTH_METHOD: "${POSTGRES_HOST_AUTH_METHOD:-trust}"
-#    volumes:
-#      - ./postgres:/var/lib/postgresql/data
+      #      - "80"
+      - "442:8443"
+    #    volumes:
+    #      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    #      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     networks:
       - postgres
-#    restart: unless-stopped
-#    deploy:
-#      mode: replicated
-#      replicas: 3
-  
-  worker_postgres:
-    depends_on: [manager_postgres]
-    environment: *AUTH
-#    command: "/wait-for-manager.sh"
-    volumes:
-      - healthcheck-volume:/healthcheck
-    networks:
-      - postgres
-    
-  manager_postgres:
-    volumes:
-      - "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock"
-      - healthcheck-volume:/healthcheck
-    depends_on: [ master_postgres ]
-    environment: *AUTH
-    networks:
-      - postgres
-
-volumes:
-  healthcheck-volume:    

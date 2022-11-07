@@ -1,4 +1,5 @@
-﻿using CoreBanking.Domain.Core.Models;
+﻿using CoreBanking.Domain.Core.DomainEvents;
+using CoreBanking.Domain.Core.Models;
 using EngineFramework;
 using EventSourcing;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,11 @@ public class DependencyRegister : IDependencyRegister
             })
             .AddEventsRepository<Customer, Guid>()
             .AddEventsRepository<Account, Guid>();
+
+        services.AddSingleton<IEventSerializer>(new JsonEventSerializer(new[]
+        {
+            typeof(CustCreatedDomainEvent).Assembly
+        }));
     }
 }
 
@@ -33,7 +39,8 @@ public static class Extensions
         {
             var connectionWrapper = ctx.GetRequiredService<IEventStoreConnectionWrapper>();
             var eventDeserializer = ctx.GetRequiredService<IEventSerializer>();
-            return new AggregateRepository<TA, TK>(connectionWrapper, eventDeserializer);
+            var logger = ctx.GetRequiredService<ILogger<AggregateRepository<TA, TK>>>();
+            return new AggregateRepository<TA, TK>(connectionWrapper, eventDeserializer, logger);
         });
     }
 }

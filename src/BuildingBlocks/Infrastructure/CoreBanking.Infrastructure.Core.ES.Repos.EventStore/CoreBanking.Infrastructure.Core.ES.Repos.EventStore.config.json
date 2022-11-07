@@ -1,7 +1,7 @@
 {
   "ConnectionStrings": {
 //    "loki": "http://127.0.0.1:3100",
-    "eventstore": "tcp://admin:changeit@127.0.0.1:1113"
+    "eventstore": "tcp://admin:changeit@192.168.10.50:1113"
 //    "kafka": "127.0.0.1:9092",
 //    "mongo": "mongodb://root:password@127.0.0.1:27017"
   }

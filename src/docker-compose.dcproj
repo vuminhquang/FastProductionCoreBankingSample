@@ -9,13 +9,16 @@
     <DockerServiceName>corebanking.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="docker-compose.override.kafka.yml">
+    <None Include="docker-compose.infra.eventstore.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
-    <None Include="docker-compose.override.api.yml">
+    <None Include="docker-compose.infra.kafka.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
-    <None Include="docker-compose.override.postgres.yml">
+    <None Include="docker-compose.infra.postgres.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.network.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
     <None Include="docker-compose.override.yml">

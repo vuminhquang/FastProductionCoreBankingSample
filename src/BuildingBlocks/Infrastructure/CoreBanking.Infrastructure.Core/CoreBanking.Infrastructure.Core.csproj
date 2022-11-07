@@ -9,7 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\CoreBanking.Domain.Core\CoreBanking.Domain.Core.csproj" />
       <ProjectReference Include="..\CoreBanking.Infrastructure.Core.ES.EvProducer.NullProducer\CoreBanking.Infrastructure.Core.ES.EvProducer.NullProducer.csproj" />
-      <ProjectReference Include="..\CoreBanking.Infrastructure.Core.ES.Repos.NullStore\CoreBanking.Infrastructure.Core.ES.Repos.NullStore.csproj" />
+      <ProjectReference Include="..\CoreBanking.Infrastructure.Core.ES.Repos.EventStore\CoreBanking.Infrastructure.Core.ES.Repos.EventStore.csproj" />
       <ProjectReference Include="..\CoreBanking.Infrastructure.Core.Repos.Postgres\CoreBanking.Infrastructure.Core.Repos.Postgres.csproj" />
     </ItemGroup>
 

@@ -2,6 +2,7 @@
 using EventSourcing;
 using EventSourcing.Models;
 using EventStore.ClientAPI;
+using Microsoft.Extensions.Logging;
 using OrderingServer.Domain.EventSourcing.Abstractions;
 using OrderingServer.Domain.EventSourcing.Abstractions.Models;
 
@@ -13,11 +14,14 @@ namespace CoreBanking.Infrastructure.Core.ES.Repos.EventStore
         private readonly IEventStoreConnectionWrapper _connectionWrapper;
         private readonly string _streamBaseName;
         private readonly IEventSerializer _eventDeserializer;
+        private readonly ILogger<AggregateRepository<TA, TKey>> _logger;
 
-        public AggregateRepository(IEventStoreConnectionWrapper connectionWrapper, IEventSerializer eventDeserializer)
+        public AggregateRepository(IEventStoreConnectionWrapper connectionWrapper, IEventSerializer eventDeserializer,
+            ILogger<AggregateRepository<TA, TKey>> logger)
         {
             _connectionWrapper = connectionWrapper;
             _eventDeserializer = eventDeserializer;
+            _logger = logger;
 
             var aggregateType = typeof(TA);
             _streamBaseName = aggregateType.Name;
@@ -25,6 +29,7 @@ namespace CoreBanking.Infrastructure.Core.ES.Repos.EventStore
 
         public async Task PersistAsync(TA aggregateRoot, CancellationToken cancellationToken = default)
         {
+            _logger.LogInformation("AggregateRepository PersistAsync {AggregateRoot}", aggregateRoot);
             if (null == aggregateRoot)
                 throw new ArgumentNullException(nameof(aggregateRoot));
 
@@ -56,6 +61,8 @@ namespace CoreBanking.Infrastructure.Core.ES.Repos.EventStore
 
         public async Task<TA> RehydrateAsync(TKey key, CancellationToken cancellationToken = default)
         {
+            _logger.LogInformation("AggregateRepository RehydrateAsync {Key}", key);
+            
             var connection = await _connectionWrapper.GetConnectionAsync().ConfigureAwait(false); ;
             
             var streamName = GetStreamName(key);

@@ -14,12 +14,14 @@
         </option>
         <option name="secondarySourceFiles">
           <list>
-            <option value="docker-compose.override.postgres.yml" />
-            <option value="docker-compose.override.yml" />
-            <option value="docker-compose.yml" />
+            <option value="docker-compose.infra.eventstore.yml" />
+            <option value="docker-compose.infra.kafka.yml" />
+            <option value="docker-compose.infra.postgres.yml" />
+            <option value="docker-compose.network.yml" />
           </list>
         </option>
-        <option name="sourceFilePath" value="docker-compose.override.kafka.yml" />
+        <option name="sourceFilePath" value="docker-compose.yml" />
+        <option name="upForceRecreate" value="true" />
         <option name="upRemoveOrphans" value="true" />
       </settings>
     </deployment>
