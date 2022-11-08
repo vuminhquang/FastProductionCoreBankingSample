@@ -9,4 +9,12 @@ public class ReadOnlyCustomerRepository : ReadOnlyGenericRepository<CustomerEnti
     public ReadOnlyCustomerRepository(IUnitOfWork context) : base(context)
     {
     }
+    
+    public bool CheckEmailExists(string email)
+    {
+        email = email.ToLower();
+        var count = _dbSet
+            .Count(entity => entity.Email.ToLower() == email);
+        return count > 0;
+    }
 }

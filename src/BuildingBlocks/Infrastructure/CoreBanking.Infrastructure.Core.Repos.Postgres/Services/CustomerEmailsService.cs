@@ -18,9 +18,10 @@ public class CustomerEmailsService :  ICustomerEmailsService
     {
         using var scope = _serviceScopeFactory.CreateScope();
         var custRepo = scope.ServiceProvider.GetRequiredService<ReadOnlyCustomerRepository>();
-        var entity = await custRepo.QueryHelper()
-            .GetOneAsync(customer => customer.Email.ToLower() == email.ToLower());
-        return entity != null;
+        // var entity = await custRepo.QueryHelper()
+        //     .GetOneAsync(customer => customer.Email.ToLower() == email.ToLower());
+        // return entity != null;
+        return custRepo.CheckEmailExists(email);
     }
 
     public async Task CreateAsync(string email, Guid customerId)

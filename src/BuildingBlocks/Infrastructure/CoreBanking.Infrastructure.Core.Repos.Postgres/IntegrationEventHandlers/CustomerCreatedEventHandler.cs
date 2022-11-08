@@ -41,7 +41,7 @@ public class CustomerCreatedEventHandler : INotificationHandler<CustomerCreatedE
         _logger.LogInformation("creating customer details for customer {CustomerId} ...", @event.CustomerId);
 
         // Get fresh details from events
-        var customerView = await SummarizeDataViaEvents(@event.CustomerId, cancellationToken);
+        var customerView = await CalculateBasedOnEvents(@event.CustomerId, cancellationToken);
         
         // Save to QueryDatabase
         await SaveCustomerAsync(customerView, cancellationToken);
@@ -59,17 +59,15 @@ public class CustomerCreatedEventHandler : INotificationHandler<CustomerCreatedE
             Balance = customerView.TotalBalance.Value,
             BalanceCurrency = customerView.TotalBalance.Currency.Symbol
         };
-        // Avoid: The instance of entity type cannot be tracked because another instance with the same key value
+        // Scope to Avoid: The instance of entity type cannot be tracked because another instance with the same key value
         // is already being tracked.
         await using var scope = _serviceScopeFactory.CreateAsyncScope();
         var custRepo = scope.ServiceProvider.GetRequiredService<CustomerRepository>();
         custRepo.Update(customer);
         await custRepo.SaveChangesAsync(cancellationToken);
-        // _customerDbRepository.Update(customer);
-        // await _customerDbRepository.SaveChangesAsync(cancellationToken);
     }
 
-    protected async Task<CustomerDetails> SummarizeDataViaEvents(Guid customerId, CancellationToken cancellationToken)
+    protected async Task<CustomerDetails> CalculateBasedOnEvents(Guid customerId, CancellationToken cancellationToken)
     {
         var customer = await _customersEventService.RehydrateAsync(customerId, cancellationToken);
 
