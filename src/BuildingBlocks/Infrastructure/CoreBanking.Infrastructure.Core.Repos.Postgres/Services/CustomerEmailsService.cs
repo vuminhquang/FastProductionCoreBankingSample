@@ -1,23 +1,24 @@
 ﻿using CoreBanking.Domain.Core.Services;
 using CoreBanking.Infrastructure.Core.Repos.Postgres.Entities;
 using CoreBanking.Infrastructure.Core.Repos.Postgres.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Services;
 
 public class CustomerEmailsService :  ICustomerEmailsService
 {
-    private readonly ReadOnlyCustomerRepository _roCustomerRepository;
-    private readonly CustomerRepository _customerRepository;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public CustomerEmailsService(ReadOnlyCustomerRepository roCustomerRepository, CustomerRepository customerRepository)
+    public CustomerEmailsService(IServiceScopeFactory serviceScopeFactory)
     {
-        _roCustomerRepository = roCustomerRepository;
-        _customerRepository = customerRepository;
+        _serviceScopeFactory = serviceScopeFactory;
     }
 
     public async Task<bool> ExistsAsync(string email)
     {
-        var entity = await _roCustomerRepository.QueryHelper()
+        using var scope = _serviceScopeFactory.CreateScope();
+        var custRepo = scope.ServiceProvider.GetRequiredService<ReadOnlyCustomerRepository>();
+        var entity = await custRepo.QueryHelper()
             .GetOneAsync(customer => customer.Email.ToLower() == email.ToLower());
         return entity != null;
     }
@@ -30,7 +31,9 @@ public class CustomerEmailsService :  ICustomerEmailsService
             Email = email
         };
 
-        _customerRepository.Add(customer);
-        await _customerRepository.SaveChangesAsync();
+        using var scope = _serviceScopeFactory.CreateScope();
+        var custRepo = scope.ServiceProvider.GetRequiredService<CustomerRepository>();
+        custRepo.Add(customer);
+        await custRepo.SaveChangesAsync();
     }
 }

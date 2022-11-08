@@ -4,6 +4,8 @@ using CoreBanking.Infrastructure.Core.Repos.Postgres.Repositories;
 using CoreBanking.Infrastructure.Core.Repos.Postgres.Services;
 using EngineFramework;
 using FreeBot.Domain.Repositories.Interfaces;
+using Lamar;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +30,7 @@ public class DependencyRegister : IDependencyRegister, IAppConfigure
             Debug.Assert(IDependencyRegister.Configuration != null, "IDependencyRegister.Configuration != null");
             var configuration = IDependencyRegister.Configuration;
             var provider = configuration.GetValue("Provider", "Postgres");
+            
             _ = provider switch
             {
                 // "Sqlite" => opts.UseSqlite(
@@ -38,7 +41,10 @@ public class DependencyRegister : IDependencyRegister, IAppConfigure
                     configuration.GetConnectionString("SqliteConnection")),
                 
                 "Postgres" => opts.UseNpgsql(configuration.GetConnectionString("Default"),
-                    optionsBuilder => optionsBuilder.MigrationsAssembly("CoreBanking.Infrastructure.Core.Repos.Postgres")),
+                    optionsBuilder =>
+                    {
+                        optionsBuilder.MigrationsAssembly("CoreBanking.Infrastructure.Core.Repos.Postgres");
+                    }).EnableSensitiveDataLogging(true),
 
                 _ => throw new Exception($"Unsupported provider: {provider}")
             };
@@ -50,6 +56,19 @@ public class DependencyRegister : IDependencyRegister, IAppConfigure
         // Other services register
         services.AddScoped<ICustomerEmailsService, CustomerEmailsService>();
         services.AddScoped<ReadOnlyCustomerRepository>();
+        services.AddScoped<CustomerRepository>();
+
+        // Add the event handlers
+        var svcs = (ServiceRegistry)services;
+        svcs.Scan(scan =>
+        {
+            scan.Assembly(typeof(DependencyRegister).Assembly);
+            scan.AddAllTypesOf(typeof(INotificationHandler<>));
+            
+            // Not to add these request handler as this is not design to handle here
+            // scan.AddAllTypesOf(typeof(IRequestHandler<>));
+            // scan.AddAllTypesOf(typeof(IRequestHandler<,>));
+        }); 
     }
 
     public void Configure(IHost app)

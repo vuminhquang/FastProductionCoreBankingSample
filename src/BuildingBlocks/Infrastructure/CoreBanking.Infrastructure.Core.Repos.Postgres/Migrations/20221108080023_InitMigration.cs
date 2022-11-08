@@ -16,7 +16,9 @@ namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: false)
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Balance = table.Column<decimal>(type: "numeric", nullable: true),
+                    BalanceCurrency = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

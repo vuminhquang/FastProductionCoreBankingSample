@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221107082516_InitMigration")]
+    [Migration("20221108080023_InitMigration")]
     partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,12 @@ namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<decimal?>("Balance")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("BalanceCurrency")
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()

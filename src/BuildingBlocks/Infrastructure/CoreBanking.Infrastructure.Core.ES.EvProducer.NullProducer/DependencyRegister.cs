@@ -1,5 +1,6 @@
 ﻿using EngineFramework;
 using EventSourcing.EventBus;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -14,5 +15,8 @@ public class DependencyRegister : IDependencyRegister
             var logger = ctx.GetRequiredService<ILogger<EventProducer>>();
             return new EventProducer(logger);
         });
+
+        services.AddTransient<MessageSender>();
+        services.AddHostedService<MessageQueueSimulator>();
     }
 }

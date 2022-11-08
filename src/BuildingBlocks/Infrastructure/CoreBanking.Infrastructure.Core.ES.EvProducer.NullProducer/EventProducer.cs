@@ -1,4 +1,5 @@
 ﻿using EventSourcing.EventBus;
+using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace CoreBanking.Infrastructure.Core.ES.EvProducer.NullProducer;
@@ -14,6 +15,8 @@ public class EventProducer : IEventProducer
 
     public Task DispatchAsync(IIntegrationEvent @event, CancellationToken cancellationToken = default)
     {
+        MessageQueueSimulator.RegisterWrapper.RegisterToRun(@event);
+        // await _mediator.Publish(@event, cancellationToken);
         _logger.LogInformation("Sent event to message queue {Event}", @event);
         return Task.CompletedTask;
     }

@@ -31,7 +31,7 @@ public class DepositHandler : INotificationHandler<Deposit>
 
         await _accountEventsService.PersistAsync(account, cancellationToken);
 
-        var @event = new TransactionHappenedEvent(Guid.NewGuid(), account.Id);
+        var @event = new TransactionCreatedEvent(Guid.NewGuid(), account.Id);
         await _eventProducer.DispatchAsync(@event, cancellationToken);
     }
 }

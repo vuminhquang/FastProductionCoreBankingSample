@@ -31,7 +31,7 @@ namespace CoreBanking.Infrastructure.Core.ES.Repos.EventStore
         private IEventStoreConnection SetupConnection()
         {
             var settings = ConnectionSettings.Create()
-                 .EnableVerboseLogging()
+                 // .EnableVerboseLogging()
                  .UseConsoleLogger()
                  .DisableTls() // https://github.com/EventStore/EventStore/issues/2547
                 .Build();

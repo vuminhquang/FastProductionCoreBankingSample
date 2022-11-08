@@ -3,9 +3,9 @@ using MediatR;
 
 namespace CoreBanking.Domain.Core.IntegrationEvents
 {
-    public record TransactionHappenedEvent : IIntegrationEvent, INotification
+    public record TransactionCreatedEvent : IIntegrationEvent, INotification
     {
-        public TransactionHappenedEvent(Guid id, Guid accountId)
+        public TransactionCreatedEvent(Guid id, Guid accountId)
         {
             this.Id = id;
             this.AccountId = accountId;

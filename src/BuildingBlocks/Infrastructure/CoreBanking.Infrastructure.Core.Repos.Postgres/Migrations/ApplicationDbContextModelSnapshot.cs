@@ -28,6 +28,12 @@ namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<decimal?>("Balance")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("BalanceCurrency")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");

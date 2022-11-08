@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <PackageReference Include="Polly" Version="7.2.3" />
+      <PackageReference Include="VDG_EngineFramework" Version="1.0.2" />
     </ItemGroup>
 
 </Project>
