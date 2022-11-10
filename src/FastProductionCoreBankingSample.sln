@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBanking.API", "Apps\CoreBanking.API\CoreBanking.API.csproj", "{82254D98-593B-450C-BA52-890C04843BEF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{2F5A79A5-70C2-4319-BABD-4842B8A1F713}"
+	ProjectSection(SolutionItems) = preProject
+		BuildingBlocks\Infrastructure\Readme.txt = BuildingBlocks\Infrastructure\Readme.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{3E016196-1B3E-4A38-9576-89ABE245B5EF}"
 EndProject

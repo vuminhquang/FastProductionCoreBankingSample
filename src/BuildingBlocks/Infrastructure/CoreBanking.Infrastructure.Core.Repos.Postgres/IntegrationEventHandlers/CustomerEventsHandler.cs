@@ -11,7 +11,10 @@ using Microsoft.Extensions.Logging;
 
 namespace CoreBanking.Infrastructure.Core.Repos.Postgres.IntegrationEventHandlers;
 
-public class CustomerCreatedEventHandler : INotificationHandler<CustomerCreatedEvent>
+public class CustomerEventsHandler : 
+    INotificationHandler<CustomerCreatedEvent>,
+    INotificationHandler<AccountCreatedEvent>,
+    INotificationHandler<TransactionCreatedEvent>
 {
     private readonly IAggregateRepository<Customer, Guid> _customersEventService;
     private readonly IAggregateRepository<Account, Guid> _accountsEventService;
@@ -19,14 +22,15 @@ public class CustomerCreatedEventHandler : INotificationHandler<CustomerCreatedE
 
     // private readonly CustomerRepository _customerDbRepository;
     private readonly ICurrencyConverter _currencyConverter;
-    private readonly ILogger<CustomerCreatedEventHandler> _logger;
+    private readonly ILogger<CustomerEventsHandler> _logger;
 
-    public CustomerCreatedEventHandler(IAggregateRepository<Customer, Guid> customersEventService,
+    public CustomerEventsHandler(
+        IAggregateRepository<Customer, Guid> customersEventService,
         IAggregateRepository<Account, Guid> accountsEventService,
         IServiceScopeFactory serviceScopeFactory,
         // CustomerRepository customerDbRepository,
         ICurrencyConverter currencyConverter,
-        ILogger<CustomerCreatedEventHandler> logger)
+        ILogger<CustomerEventsHandler> logger)
     {
         // _customerDbRepository = customerDbRepository;
         _currencyConverter = currencyConverter;
@@ -48,26 +52,23 @@ public class CustomerCreatedEventHandler : INotificationHandler<CustomerCreatedE
         
     }
 
-    protected async Task SaveCustomerAsync(CustomerDetails customerView, CancellationToken cancellationToken)
+    public async Task Handle(AccountCreatedEvent @event, CancellationToken cancellationToken)
     {
-        var customer = new CustomerEntity
-        {
-            Id = customerView.Id,
-            FirstName = customerView.Firstname,
-            LastName = customerView.Lastname,
-            Email = customerView.Email,
-            Balance = customerView.TotalBalance.Value,
-            BalanceCurrency = customerView.TotalBalance.Currency.Symbol
-        };
-        // Scope to Avoid: The instance of entity type cannot be tracked because another instance with the same key value
-        // is already being tracked.
-        await using var scope = _serviceScopeFactory.CreateAsyncScope();
-        var custRepo = scope.ServiceProvider.GetRequiredService<CustomerRepository>();
-        custRepo.Update(customer);
-        await custRepo.SaveChangesAsync(cancellationToken);
-    }
+        var account = await _accountsEventService.RehydrateAsync(@event.AccountId, cancellationToken);
 
-    protected async Task<CustomerDetails> CalculateBasedOnEvents(Guid customerId, CancellationToken cancellationToken)
+        var customerView = await CalculateBasedOnEvents(account.OwnerId, cancellationToken);
+        await SaveCustomerAsync(customerView, cancellationToken);
+    }
+    
+    public async Task Handle(TransactionCreatedEvent @event, CancellationToken cancellationToken)
+    {
+        var account = await _accountsEventService.RehydrateAsync(@event.AccountId, cancellationToken);
+
+        var customerView = await CalculateBasedOnEvents(account.OwnerId, cancellationToken);
+        await SaveCustomerAsync(customerView, cancellationToken);
+    }
+    
+    private async Task<CustomerDetails> CalculateBasedOnEvents(Guid customerId, CancellationToken cancellationToken)
     {
         var customer = await _customersEventService.RehydrateAsync(customerId, cancellationToken);
 
@@ -84,5 +85,24 @@ public class CustomerCreatedEventHandler : INotificationHandler<CustomerCreatedE
 
         var customerView = new CustomerDetails(customer.Id, customer.Firstname, customer.Lastname, customer.Email.Value, accounts, totalBalance);
         return customerView;
+    }
+    
+    private async Task SaveCustomerAsync(CustomerDetails customerView, CancellationToken cancellationToken)
+    {
+        var customer = new CustomerEntity
+        {
+            Id = customerView.Id,
+            FirstName = customerView.Firstname,
+            LastName = customerView.Lastname,
+            Email = customerView.Email,
+            Balance = customerView.TotalBalance.Value,
+            BalanceCurrency = customerView.TotalBalance.Currency.Symbol
+        };
+        // Scope to Avoid: The instance of entity type cannot be tracked because another instance with the same key value
+        // is already being tracked.
+        await using var scope = _serviceScopeFactory.CreateAsyncScope();
+        var custRepo = scope.ServiceProvider.GetRequiredService<CustomerRepository>();
+        custRepo.Update(customer);
+        await custRepo.SaveChangesAsync(cancellationToken);
     }
 }
