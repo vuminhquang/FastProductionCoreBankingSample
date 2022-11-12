@@ -1,6 +1,6 @@
 ﻿using CoreBanking.Domain.Core.Models;
 
-namespace CoreBanking.Domain.Core.SummarizationDtos;
+namespace CoreBanking.Domain.Core.QueryDatabaseDtos;
 
 public record CustomerAccountDetails(Guid Id, Money Balance)
 {

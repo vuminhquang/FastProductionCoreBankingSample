@@ -1,5 +1,5 @@
 ﻿using CoreBanking.Application.Core.DTOs;
-using CoreBanking.Application.Core.Queries;
+using CoreBanking.Application.Core.Services;
 using CoreBanking.Domain.Core.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +11,12 @@ namespace CoreBanking.API.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly CustomersService _customersService;
 
-        public CustomersController(IMediator mediator)
+        public CustomersController(IMediator mediator, CustomersService customersService)
         {
             _mediator = mediator;
+            _customersService = customersService;
         }
 
         [HttpPost]
@@ -31,8 +33,7 @@ namespace CoreBanking.API.Controllers
         [HttpGet, Route("{id:guid}", Name = "GetCustomer")]
         public async Task<IActionResult> GetCustomer(Guid id, CancellationToken cancellationToken= default)
         {
-            var query = new CustomerById(id);
-            var result = await _mediator.Send(query, cancellationToken);
+            var result = _customersService.GetCustomer(id, cancellationToken);
             if (null == result) 
                 return NotFound();
             return Ok(result);
@@ -41,8 +42,7 @@ namespace CoreBanking.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(CancellationToken cancellationToken = default)
         {
-            var query = new CustomersArchive();
-            var results = await _mediator.Send(query, cancellationToken);
+            var results = await _customersService.GetCustomers(cancellationToken);
             if (null == results)
                 return NotFound();
             return Ok(results);

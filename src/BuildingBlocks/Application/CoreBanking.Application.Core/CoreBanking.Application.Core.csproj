@@ -8,14 +8,11 @@
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="11.0.0" />
+      <PackageReference Include="VDG_EngineFramework" Version="1.0.2" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Infrastructure\CoreBanking.Infrastructure.Core\CoreBanking.Infrastructure.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Commands" />
     </ItemGroup>
 
 </Project>

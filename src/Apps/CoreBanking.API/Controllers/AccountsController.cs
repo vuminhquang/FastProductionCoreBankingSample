@@ -1,5 +1,4 @@
 ﻿using CoreBanking.Application.Core.DTOs;
-using CoreBanking.Application.Core.Queries;
 using CoreBanking.Domain.Core.Commands;
 using CoreBanking.Domain.Core.Models;
 using MediatR;
@@ -21,11 +20,12 @@ namespace CoreBanking.API.Controllers
         [HttpGet, Route("{id:guid}", Name = "GetAccount")]
         public async Task<IActionResult> GetAccount(Guid id, CancellationToken cancellationToken = default)
         {
-            var query = new AccountById(id);
-            var result = await _mediator.Send(query, cancellationToken);
-            if (result is null)
-                return NotFound();
-            return Ok(result);
+            return NotFound();
+            // var query = new AccountById(id);
+            // var result = await _mediator.Send(query, cancellationToken);
+            // if (result is null)
+            //     return NotFound();
+            // return Ok(result);
         }
 
         [HttpPost]

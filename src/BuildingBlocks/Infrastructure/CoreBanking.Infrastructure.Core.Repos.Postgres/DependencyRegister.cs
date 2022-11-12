@@ -63,12 +63,16 @@ public class DependencyRegister : IDependencyRegister, IAppConfigure
         svcs.Scan(scan =>
         {
             scan.Assembly(typeof(DependencyRegister).Assembly);
+            // Add the integration event handlers
             scan.AddAllTypesOf(typeof(INotificationHandler<>));
-            
-            // Not to add these request handler as this is not design to handle here
+            // Add the query handlers
+            scan.AddAllTypesOf(typeof(IRequestHandler<,>));
+            // No command handlers as command will be handled first at Infrastructure.Core, after it will publish event to the repo-related such as this project
             // scan.AddAllTypesOf(typeof(IRequestHandler<>));
-            // scan.AddAllTypesOf(typeof(IRequestHandler<,>));
         }); 
+        
+        // Add Auto Mapper
+        services.AddAutoMapper(typeof(DependencyRegister));
     }
 
     public void Configure(IHost app)

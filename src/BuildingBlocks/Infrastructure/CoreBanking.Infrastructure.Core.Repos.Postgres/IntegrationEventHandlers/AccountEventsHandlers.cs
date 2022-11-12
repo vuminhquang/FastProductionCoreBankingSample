@@ -1,6 +1,6 @@
-﻿using CoreBanking.Domain.Core.CalculationDtos;
-using CoreBanking.Domain.Core.IntegrationEvents;
+﻿using CoreBanking.Domain.Core.IntegrationEvents;
 using CoreBanking.Domain.Core.Models;
+using CoreBanking.Domain.Core.QueryDatabaseDtos;
 using CoreBanking.Infrastructure.Core.Repos.Postgres.Entities;
 using CoreBanking.Infrastructure.Core.Repos.Postgres.Repositories;
 using EventSourcing;

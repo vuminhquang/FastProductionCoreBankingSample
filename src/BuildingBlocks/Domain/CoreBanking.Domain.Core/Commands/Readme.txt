@@ -1,0 +1,1 @@
+Commands should be wrote first as they are the business
