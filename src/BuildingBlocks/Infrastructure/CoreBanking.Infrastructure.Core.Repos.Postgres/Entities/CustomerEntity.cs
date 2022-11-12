@@ -9,4 +9,6 @@ public class CustomerEntity : BaseEntity<Guid>
     public string Email { get; set; }
     public decimal? Balance { get; set; }
     public string? BalanceCurrency { get; set; }
+    
+    public IList<AccountEntity> Accounts { get; set; } = new List<AccountEntity>();
 }

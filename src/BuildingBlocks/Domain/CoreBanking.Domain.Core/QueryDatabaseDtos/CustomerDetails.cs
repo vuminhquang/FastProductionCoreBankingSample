@@ -2,7 +2,7 @@
 
 namespace CoreBanking.Domain.Core.QueryDatabaseDtos;
 
-public record CustomerDetails
+public class CustomerDetails
 {
     public CustomerDetails(Guid id, string firstname, string lastname, string email, CustomerAccountDetails[] accounts, Money totalBalance)
     {
