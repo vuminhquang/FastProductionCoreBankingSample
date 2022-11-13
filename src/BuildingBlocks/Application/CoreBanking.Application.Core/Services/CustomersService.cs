@@ -15,7 +15,8 @@ public class CustomersService
 
     public async Task<CustomerDetails> GetCustomer(Guid id, CancellationToken cancellationToken = default)
     {
-        return null;
+        var results = await _mediator.Send(new GetCustomerById(id), cancellationToken);
+        return results;
     }    
     
     public async Task<IEnumerable<CustomerDetails>> GetCustomers(CancellationToken cancellationToken = default)

@@ -33,7 +33,7 @@ namespace CoreBanking.API.Controllers
         [HttpGet, Route("{id:guid}", Name = "GetCustomer")]
         public async Task<IActionResult> GetCustomer(Guid id, CancellationToken cancellationToken= default)
         {
-            var result = _customersService.GetCustomer(id, cancellationToken);
+            var result = await _customersService.GetCustomer(id, cancellationToken);
             if (null == result) 
                 return NotFound();
             return Ok(result);
