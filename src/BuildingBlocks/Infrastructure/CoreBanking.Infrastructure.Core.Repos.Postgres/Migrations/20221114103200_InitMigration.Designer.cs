@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221110165526_InitMigration")]
+    [Migration("20221114103200_InitMigration")]
     partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,28 @@ namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.AccountEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("BalanceCurrency")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("account");
+                });
 
             modelBuilder.Entity("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.CustomerEntity", b =>
                 {
@@ -48,7 +70,23 @@ namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("customer");
+                });
+
+            modelBuilder.Entity("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.AccountEntity", b =>
+                {
+                    b.HasOne("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.CustomerEntity", "Owner")
+                        .WithMany("Accounts")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.CustomerEntity", b =>
+                {
+                    b.Navigation("Accounts");
                 });
 #pragma warning restore 612, 618
         }

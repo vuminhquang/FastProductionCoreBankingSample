@@ -12,5 +12,7 @@ namespace CoreBanking.Application.Core.DTOs
 
         [Required]
         public string Email { get; set; }
+
+        public string? DefaultCurrency { get; set; }
     }
 }

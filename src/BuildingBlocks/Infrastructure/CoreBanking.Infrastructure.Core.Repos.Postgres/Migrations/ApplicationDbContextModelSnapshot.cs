@@ -22,6 +22,28 @@ namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.AccountEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("BalanceCurrency")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("account");
+                });
+
             modelBuilder.Entity("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.CustomerEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -46,7 +68,23 @@ namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("customer");
+                });
+
+            modelBuilder.Entity("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.AccountEntity", b =>
+                {
+                    b.HasOne("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.CustomerEntity", "Owner")
+                        .WithMany("Accounts")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("CoreBanking.Infrastructure.Core.Repos.Postgres.Entities.CustomerEntity", b =>
+                {
+                    b.Navigation("Accounts");
                 });
 #pragma warning restore 612, 618
         }

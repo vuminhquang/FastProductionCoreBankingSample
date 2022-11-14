@@ -20,6 +20,7 @@ public class GetCustomerByIdHandler : IRequestHandler<GetCustomerById, CustomerD
     public async Task<CustomerDetails> Handle(GetCustomerById request, CancellationToken cancellationToken)
     {
         var ret = await _customerRepository.QueryHelper()
+            .Include(item => item.Accounts)
             .GetOneAsync(entity => entity.Id == request.CustomerId);
         return _mapper.Map<CustomerDetails>(ret);
     }

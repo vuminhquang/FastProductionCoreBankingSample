@@ -1,4 +1,5 @@
 ﻿using CoreBanking.Application.Core.DTOs;
+using CoreBanking.Application.Core.Services;
 using CoreBanking.Domain.Core.Commands;
 using CoreBanking.Domain.Core.Models;
 using MediatR;
@@ -11,10 +12,12 @@ namespace CoreBanking.API.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly AccountsService _accountsService;
 
-        public AccountsController(IMediator mediator)
+        public AccountsController(IMediator mediator, AccountsService accountsService)
         {
             _mediator = mediator;
+            _accountsService = accountsService;
         }
 
         [HttpGet, Route("{id:guid}", Name = "GetAccount")]
@@ -35,9 +38,9 @@ namespace CoreBanking.API.Controllers
                 return BadRequest();
 
             var currency = Currency.FromCode(dto.CurrencyCode);
-            var command = new CreateAccount(dto.CustomerId, Guid.NewGuid(), currency);
-            await _mediator.Publish(command, cancellationToken);
-            return CreatedAtAction("GetAccount", "Accounts", new { id = command.AccountId }, command);
+            var accountId = await _accountsService.Create(dto.CustomerId, currency, cancellationToken);
+            // return CreatedAtAction("GetAccount", "Accounts", new { id = accountId }, command);
+            return CreatedAtAction("GetAccount", controllerName: "Accounts", routeValues:new { id = accountId }, accountId);
         }
 
 

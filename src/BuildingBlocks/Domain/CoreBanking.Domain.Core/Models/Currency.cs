@@ -2,18 +2,18 @@
 {
     public record Currency
     {
-        public Currency(string name, string symbol)
+        public Currency(string code, string symbol)
         {
             if(string.IsNullOrWhiteSpace(symbol))
                 throw new ArgumentNullException(nameof(symbol));
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(name));
+            if (string.IsNullOrWhiteSpace(code))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(code));
 
             Symbol = symbol;
-            Name = name;
+            Code = code;
         }
 
-        public string Name { get; }
+        public string Code { get; }
         public string Symbol { get; }
 
         public override string ToString()
@@ -29,9 +29,9 @@
         {
             Currencies = new Dictionary<string, Currency>()
             {
-                { Euro.Name, Euro },
-                { CanadianDollar.Name, CanadianDollar },
-                { USDollar.Name, USDollar },
+                { Euro.Code, Euro },
+                { CanadianDollar.Code, CanadianDollar },
+                { USDollar.Code, USDollar },
             };
         }
 

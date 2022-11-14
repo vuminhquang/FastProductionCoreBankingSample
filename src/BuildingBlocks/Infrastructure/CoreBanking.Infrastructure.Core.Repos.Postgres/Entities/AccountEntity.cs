@@ -4,6 +4,7 @@ using RepositoryHelper.Abstraction;
 
 namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Entities;
 
+[Table("account")]
 public class AccountEntity : BaseEntity<Guid>
 {
     [ForeignKey(nameof(CustomerEntity))]

@@ -1,7 +1,9 @@
-﻿using RepositoryHelper.Abstraction;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using RepositoryHelper.Abstraction;
 
 namespace CoreBanking.Infrastructure.Core.Repos.Postgres.Entities;
 
+[Table("customer")]
 public class CustomerEntity : BaseEntity<Guid>
 {
     public string? FirstName { get; set; }

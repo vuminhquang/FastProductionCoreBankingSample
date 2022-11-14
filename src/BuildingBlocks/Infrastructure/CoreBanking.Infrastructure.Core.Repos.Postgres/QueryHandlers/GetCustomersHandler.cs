@@ -22,7 +22,7 @@ public class GetCustomersHandler : IRequestHandler<GetCustomers, IEnumerable<Cus
     public async Task<IEnumerable<CustomerDetails>> Handle(GetCustomers request, CancellationToken cancellationToken)
     {
         var ret = await _customerRepository.QueryHelper()
-            // .Include(basket => basket.Articles)
+            .Include(item => item.Accounts)
             .GetAllAsync()
             ;
         return ret.Select(MapEntityToDto);
